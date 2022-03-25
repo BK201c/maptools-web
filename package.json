@@ -13,6 +13,7 @@
     "ant-design-vue": "^2.2.8",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
+    "file-saver": "^2.0.5",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
