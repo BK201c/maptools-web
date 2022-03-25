@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts" setup>
-import Uploader from "@/components/uploader/index.vue";
-import Higlight from "@/components/higlight/index.vue";
-import AntIcon from "@/components/icon";
+import Uploader from "@cmp/uploader/index.vue";
+import Higlight from "@cmp/higlight/index.vue";
+import AntIcon from "@cmp/icon";
 import Transform from "./components/transform.vue";
 import { reactive } from "vue";
 const customStyle =

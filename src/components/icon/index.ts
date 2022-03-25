@@ -1,7 +1,12 @@
-import { h } from "vue";
+import { h, VNode } from "vue";
 import * as $Icon from "@ant-design/icons-vue";
 
-export const AntIcon = (props: { icon: string }) => {
+/**
+ *
+ * @param props
+ * @returns
+ */
+export const AntIcon = (props: { icon: string }): VNode => {
   const { icon } = props;
   const iconMapper: { [key: string]: any } = $Icon;
   return h(iconMapper[icon]);
