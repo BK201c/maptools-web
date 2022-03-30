@@ -3,7 +3,7 @@
     <a-row class="trans-styles-items">
       <a-col :span="24">
         <a-space>
-          <span>图层列表：</span>
+          <span>Source Layers:</span>
           <!-- <a-checkbox
             v-model:checked="state.checkAll"
             @change="onCheckAllChange"
@@ -15,13 +15,14 @@
             @change="layerCheck(key)"
             >{{ key }}</a-checkbox
           >
+          <span v-if="_.isEmpty(state.layerGroup)">waiting for analyze</span>
         </a-space>
       </a-col>
     </a-row>
     <a-row class="trans-styles-items">
       <a-col :span="24">
         <a-space>
-          <span>切换版本：</span>
+          <span>Target Version:</span>
           <a-radio-group v-model:value="state.version" @change="changeVersion">
             <a-radio value="v2">v2</a-radio>
             <a-radio value="v3">v3</a-radio>
@@ -31,34 +32,28 @@
     </a-row>
     <a-row class="trans-styles-items">
       <a-col :span="24">
-        <a-button type="primary" @click="getReverseLayer" ghost>生成</a-button>
+        <a-space>
+          <span>Target Host:</span>
+          <a-input v-model:value="state.targetHost" placeholder="Host" />
+        </a-space>
       </a-col>
     </a-row>
-    <!-- <a-row class="trans-styles-rebuild">
-      <a-col :span="5">
-        <a-select style="width:100%" v-model:value="state.targetLayer">
-          <a-select-option
-            v-for="(value, key) in state.layerGroup"
-            :value="key"
-            >{{ key }}</a-select-option
-          >
-        </a-select>
+    <a-row class="trans-styles-items">
+      <a-col :span="24">
+        <a-space>
+          <span>Target MapName:</span>
+          <a-input v-model:value="state.targetMapName" placeholder="mapName" />
+        </a-space>
       </a-col>
-      <a-col :span="9">
-        <a-input v-model:value="state.targetHost" placeholder="host" />
-      </a-col>
-      <a-col :span="5">
-        <a-input v-model:value="state.targetMapName" placeholder="mapName" />
-      </a-col>
-      <a-col :span="5">
-        <a-button type="primary" ghost>替换</a-button>
-      </a-col>
-    </a-row> -->
+    </a-row>
+    <a-button class="button" type="primary" @click="getReverseLayer" ghost
+      >Create &nbsp;>></a-button
+    >
   </section>
 </template>
 
 <script lang="ts" setup>
-import { watch, toRaw, reactive, watchEffect } from "vue";
+import { watch, toRaw, reactive } from "vue";
 import _ from "lodash";
 import { message } from "ant-design-vue";
 
@@ -73,8 +68,8 @@ const state = reactive({
   layerGroup: {},
   checkedGroup: <any>[],
   targetLayer: "",
-  targetHost: "",
-  targetMapName: "",
+  targetHost: "@kedacom.com",
+  targetMapName: "local_map",
   version: "v3",
 });
 
@@ -99,7 +94,7 @@ const layerCheck = (key: any) => {
 // 解析原始styles为单个图层列表
 const decodeLayers = (styles: any) => {
   try {
-    let layers: Object | Array<object>;
+    let layers: Object | Array<object> = [];
     if (styles.hasOwnProperty("layers")) layers = styles["layers"];
     if (styles.hasOwnProperty("2d")) layers = styles["2d"]["layers"];
     if (styles instanceof Array && styles.length > 0) layers = { ...styles };
@@ -149,24 +144,20 @@ const generatedStyle = (layers: object, version: string): {} => {
 };
 
 //替换样式文件地址
-const replaceTargetUrl = (
-  originFullUrl: string,
-  flagHost: string,
-  flagMapName?: string
-): string => {
+const replaceTargetUrl = (originFullUrl: string, version: string): string => {
   try {
     const url = new URL(originFullUrl);
     const pathList = url.pathname.split("/");
+    const mapServerPath =
+      version === "v2" ? "kmap-server" : "kmap-server-engine";
+    let originPathStr: string = "";
     if (pathList[2] === "threeMap") {
-      // 判断是否属于kmapserver转发后的url
-      return `${flagHost}/threeMap/${flagMapName || pathList[3]}/${pathList
-        .slice(-1)
-        .join("/")}${url.search}`;
+      originPathStr = `${pathList.slice(4).join("/")}${url.search}`;
     } else {
-      return `${flagHost}/threeMap/${flagMapName || "local_map"}${
-        url.pathname
-      }${url.search}`;
+      originPathStr = `${url.pathname}${url.search}`;
     }
+    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}/${originPathStr}`;
+    return fullReverseUrl;
   } catch (error) {
     console.log(error);
     throw error;
@@ -211,6 +202,17 @@ const getReverseLayer = () => {
 .trans-styles {
   &-items {
     margin-top: 10px;
+  }
+  &-container {
+    box-shadow: 0 0 4px 1px #d5d5d5;
+    padding: 20px;
+    border-radius: 20px;
+    .button {
+      position: absolute;
+      right: 20px;
+      z-index: 88;
+      top: 40%;
+    }
   }
 }
 </style>

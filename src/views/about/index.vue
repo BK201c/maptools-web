@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import logo from "@/assets/img/logo.png";
-import config from "../../../package.json";
+import config from "@root/package.json";
 const title = import.meta.env.VITE_APP_NAME;
 const items = [
   {

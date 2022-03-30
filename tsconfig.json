@@ -9,6 +9,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "types": [
       "vite/client"
     ],
@@ -20,7 +21,13 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "@cmp/*": [
+        "src/components/*"
+      ],
+      "@root/*": [
+        "./*"
+      ],
     }
   },
   "include": [

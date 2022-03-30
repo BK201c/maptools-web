@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 const alias = {
   "@": resolve(__dirname, "./src"),
-  "@root": resolve(__dirname, "../src"),
+  "@root": resolve(__dirname, "."),
   "@assets": resolve(__dirname, "./src/assets"),
   "@cmp": resolve(__dirname, "./src/components"),
   "@config": resolve(__dirname, "./src/config"),
@@ -41,7 +41,7 @@ export default ({ command, mode }) => {
     // 本地服务配置
     server: {
       host: process.env.VITE_HOST,
-      port: process.env.VITE_PORT,
+      port: 3000,
     },
 
     envDir: "./src/env",
