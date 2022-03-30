@@ -97,9 +97,13 @@ const decodeLayers = (styles: any) => {
     let layers: Object | Array<object> = [];
     if (styles.hasOwnProperty("layers")) layers = styles["layers"];
     if (styles.hasOwnProperty("2d")) layers = styles["2d"]["layers"];
-    if (styles instanceof Array && styles.length > 0) layers = { ...styles };
+    if (styles instanceof Array && styles.length > 0)
+      layers = styles.reduce(
+        (pre, cur, i) => Object.assign(pre, { [`layer${i}`]: cur }),
+        {}
+      );
     state.layerGroup = layers;
-    console.log("已解析", state.layerGroup);
+    console.log("已解析", state.layerGroup, layers);
     message.success("检测到样式文件，已解析");
   } catch (error) {
     console.log("样式文件解析失败", error);
@@ -108,14 +112,9 @@ const decodeLayers = (styles: any) => {
 };
 
 const changeVersion = (e: Event) => {
-  $emit("changeVersion", e);
-};
+  console.log("当前版本", state.version);
 
-const onCheckAllChange = (e: any) => {
-  // Object.assign(state, {
-  //   checkedList: e.target.checked ? state.checkNameList : [],
-  //   indeterminate: false,
-  // });
+  $emit("changeVersion", e);
 };
 
 // 转换样式文件
@@ -156,23 +155,11 @@ const replaceTargetUrl = (originFullUrl: string, version: string): string => {
     } else {
       originPathStr = `${url.pathname}${url.search}`;
     }
-    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}/${originPathStr}`;
+    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}${originPathStr}`;
     return fullReverseUrl;
   } catch (error) {
     console.log(error);
     throw error;
-  }
-};
-
-//替换原始地址
-const getPathByVersion = (version: string): string => {
-  switch (version) {
-    case "v2":
-      return "@kedacom.com/kmap-server";
-    case "v3":
-      return "@kedacom.com/kmap-server-engine";
-    default:
-      return "@kedacom.com/kmap-server-engine";
   }
 };
 
@@ -184,10 +171,7 @@ const getReverseLayer = () => {
   for (const key in layers) {
     if (Object.prototype.hasOwnProperty.call(layers, key)) {
       const element = layers[key];
-      element.url = replaceTargetUrl(
-        element.url,
-        getPathByVersion(state.version)
-      );
+      element.url = replaceTargetUrl(element.url, state.version);
     }
   }
   const newStyle = generatedStyle(layers, state.version);
