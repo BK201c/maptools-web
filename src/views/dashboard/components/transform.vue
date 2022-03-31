@@ -153,9 +153,9 @@ const replaceTargetUrl = (originFullUrl: string, version: string): string => {
     if (pathList[2] === "threeMap") {
       originPathStr = `${pathList.slice(4).join("/")}${url.search}`;
     } else {
-      originPathStr = `${url.pathname}${url.search}`;
+      originPathStr = `${url.pathname.slice(1)}${url.search}`;
     }
-    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}${originPathStr}`;
+    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}/${originPathStr}`;
     return fullReverseUrl;
   } catch (error) {
     console.log(error);
