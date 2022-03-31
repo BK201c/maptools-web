@@ -2,27 +2,27 @@
 // We suggest you to commit this file into source control
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
-declare module "vue" {
+declare module 'vue' {
   export interface GlobalComponents {
-    AButton: typeof import("ant-design-vue/es")["Button"];
-    ACheckbox: typeof import("ant-design-vue/es")["Checkbox"];
-    ACol: typeof import("ant-design-vue/es")["Col"];
-    ACollapse: typeof import("ant-design-vue/es")["Collapse"];
-    ACollapsePanel: typeof import("ant-design-vue/es")["CollapsePanel"];
-    AInput: typeof import("ant-design-vue/es")["Input"];
-    ALayout: typeof import("ant-design-vue/es")["Layout"];
-    ALayoutContent: typeof import("ant-design-vue/es")["LayoutContent"];
-    ALayoutSider: typeof import("ant-design-vue/es")["LayoutSider"];
-    AMenu: typeof import("ant-design-vue/es")["Menu"];
-    AMenuItem: typeof import("ant-design-vue/es")["MenuItem"];
-    ARadio: typeof import("ant-design-vue/es")["Radio"];
-    ARadioGroup: typeof import("ant-design-vue/es")["RadioGroup"];
-    ARow: typeof import("ant-design-vue/es")["Row"];
-    ASpace: typeof import("ant-design-vue/es")["Space"];
-    AUploadDragger: typeof import("ant-design-vue/es")["UploadDragger"];
-    Higlight: typeof import("./src/components/higlight/index.vue")["default"];
-    Uploader: typeof import("./src/components/uploader/index.vue")["default"];
+    AButton: typeof import('ant-design-vue/es')['Button']
+    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
+    ACol: typeof import('ant-design-vue/es')['Col']
+    ACollapse: typeof import('ant-design-vue/es')['Collapse']
+    ACollapsePanel: typeof import('ant-design-vue/es')['CollapsePanel']
+    AInput: typeof import('ant-design-vue/es')['Input']
+    ALayout: typeof import('ant-design-vue/es')['Layout']
+    ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
+    ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
+    AMenu: typeof import('ant-design-vue/es')['Menu']
+    AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+    ARadio: typeof import('ant-design-vue/es')['Radio']
+    ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ARow: typeof import('ant-design-vue/es')['Row']
+    ASpace: typeof import('ant-design-vue/es')['Space']
+    AUploadDragger: typeof import('ant-design-vue/es')['UploadDragger']
+    Higlight: typeof import('./src/components/higlight/index.vue')['default']
+    Uploader: typeof import('./src/components/uploader/index.vue')['default']
   }
 }
 
-export {};
+export { }

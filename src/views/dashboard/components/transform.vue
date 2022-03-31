@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
 import { watch, toRaw, reactive } from "vue";
-import { pull, pick, cloneDeep, isEmpty } from "lodash";
+import { pull, pick, cloneDeep, isEmpty, forEach, values } from "lodash";
 import { message } from "ant-design-vue";
 
 const $emit = defineEmits(["rebuild", "changeVersion"]);
@@ -102,6 +102,7 @@ const decodeLayers = (styles: any) => {
         (pre, cur, i) => Object.assign(pre, { [`layer${i}`]: cur }),
         {}
       );
+
     state.layerGroup = layers;
     console.log("已解析", state.layerGroup, layers);
     message.success("检测到样式文件，已解析");
@@ -172,6 +173,8 @@ const getReverseLayer = () => {
     if (Object.prototype.hasOwnProperty.call(layers, key)) {
       const element = layers[key];
       element.url = replaceTargetUrl(element.url, state.version);
+      if (!element.hasOwnProperty("auth"))
+        Object.assign(element, { auth: true });
     }
   }
   const newStyle = generatedStyle(layers, state.version);
