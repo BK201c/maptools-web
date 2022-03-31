@@ -15,7 +15,7 @@
             @change="layerCheck(key)"
             >{{ key }}</a-checkbox
           >
-          <span v-if="_.isEmpty(state.layerGroup)">waiting for analyze</span>
+          <span v-if="isEmpty(state.layerGroup)">waiting for analyze</span>
         </a-space>
       </a-col>
     </a-row>
@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
 import { watch, toRaw, reactive } from "vue";
-import _ from "lodash";
+import { pull, pick, cloneDeep, isEmpty } from "lodash";
 import { message } from "ant-design-vue";
 
 const $emit = defineEmits(["rebuild", "changeVersion"]);
@@ -84,7 +84,7 @@ watch(
 // checkbox选中事件
 const layerCheck = (key: any) => {
   if (state.checkedGroup.includes(key)) {
-    _.pull(state.checkedGroup, key);
+    pull(state.checkedGroup, key);
   } else {
     state.checkedGroup.push(key);
   }
@@ -165,8 +165,8 @@ const replaceTargetUrl = (originFullUrl: string, version: string): string => {
 
 //获取转换版本后的图层
 const getReverseLayer = () => {
-  const layers: { [key: string]: any } = _.cloneDeep(
-    _.pick(state.layerGroup, state.checkedGroup)
+  const layers: { [key: string]: any } = cloneDeep(
+    pick(state.layerGroup, state.checkedGroup)
   );
   for (const key in layers) {
     if (Object.prototype.hasOwnProperty.call(layers, key)) {
