@@ -173,7 +173,9 @@ const replaceTargetUrl = (originFullUrl: string, version: string): string => {
     } else {
       originPathStr = `${url.pathname.slice(1)}${url.search}`;
     }
-    const fullReverseUrl: string = `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}/${originPathStr}`;
+    const fullReverseUrl: string = decodeURI(
+      `${state.targetHost}/${mapServerPath}/threeMap/${state.targetMapName}/${originPathStr}`
+    );
     return fullReverseUrl;
   } catch (error) {
     console.log(error);
