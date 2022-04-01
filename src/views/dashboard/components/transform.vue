@@ -4,12 +4,6 @@
       <a-col :span="24">
         <a-space>
           <span>Source Layers:</span>
-          <!-- <a-checkbox
-            v-model:checked="state.checkAll"
-            @change="onCheckAllChange"
-          >
-            全选
-          </a-checkbox> -->
           <a-checkbox
             v-for="(value, key) in state.layerGroup"
             @change="layerCheck(key)"
@@ -27,6 +21,21 @@
             <a-radio value="v2">v2</a-radio>
             <a-radio value="v3">v3</a-radio>
           </a-radio-group>
+        </a-space>
+      </a-col>
+    </a-row>
+    <a-row class="trans-styles-items" v-if="state.version === 'v2'">
+      <a-col :span="24">
+        <a-space>
+          <span>Default Scenes:</span>
+          <a-select
+            v-model:value="state.scense"
+            :options="state.options"
+            mode="multiple"
+            placeholder="Please select"
+            style="width: 200px"
+          >
+          </a-select>
         </a-space>
       </a-col>
     </a-row>
@@ -53,8 +62,8 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, toRaw, reactive } from "vue";
-import { pull, pick, cloneDeep, isEmpty, forEach, values } from "lodash";
+import { watch, toRaw, reactive, ref } from "vue";
+import { pull, pick, cloneDeep, isEmpty } from "lodash";
 import { message } from "ant-design-vue";
 
 const $emit = defineEmits(["rebuild", "changeVersion"]);
@@ -67,6 +76,8 @@ const state = reactive({
   checkAll: false,
   layerGroup: {},
   checkedGroup: <any>[],
+  scense: [],
+  options: <object>[],
   targetLayer: "",
   targetHost: "@kedacom.com",
   targetMapName: "local_map",
@@ -104,6 +115,12 @@ const decodeLayers = (styles: any) => {
       );
 
     state.layerGroup = layers;
+    state.options = [
+      ...Object.keys(layers).map((v) =>
+        Object.assign({}, { label: v, value: v })
+      ),
+    ];
+    state.scense = Object.keys(layers); //默认选中所有图层
     console.log("已解析", state.layerGroup, layers);
     message.success("检测到样式文件，已解析");
   } catch (error) {
@@ -126,7 +143,7 @@ const generatedStyle = (layers: object, version: string): {} => {
       projection: Object.values(layers)[0].projection,
       layers: layers,
       scenes: {
-        default: [],
+        default: state.scense,
       },
       kmapServerUrl: "",
     },
