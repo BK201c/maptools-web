@@ -11,7 +11,6 @@
           <a-col :span="24">
             <Transform
               @rebuild="rebuild"
-              @changeVersion="changeVersion"
               :iptStyle="state.uploadStyle"
             ></Transform>
           </a-col>
@@ -63,10 +62,6 @@ const rebuild = (props: { newStyle: object; fileName: string }): void => {
   state.rebuildStyle = newStyle;
   state.fileName = fileName;
   state.activeKey = [2];
-};
-
-const changeVersion = (ver: string): void => {
-  console.log(ver);
 };
 </script>
 

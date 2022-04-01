@@ -198,22 +198,27 @@ const replaceTargetUrl = (originFullUrl: string, version: string): string => {
 
 //获取转换版本后的图层
 const getReverseLayer = () => {
-  const layers: { [key: string]: any } = cloneDeep(
-    pick(state.layerGroup, state.checkedGroup)
-  );
-  for (const key in layers) {
-    if (Object.prototype.hasOwnProperty.call(layers, key)) {
-      const element = layers[key];
-      element.url = replaceTargetUrl(element.url, state.version);
-      if (!element.hasOwnProperty("auth"))
-        Object.assign(element, { auth: true });
+  if (!isEmpty(state.checkedGroup)) {
+    const layers: { [key: string]: any } = cloneDeep(
+      pick(state.layerGroup, state.checkedGroup)
+    );
+    for (const key in layers) {
+      if (Object.prototype.hasOwnProperty.call(layers, key)) {
+        const element = layers[key];
+        if (!element.hasOwnProperty("auth") || element.auth) {
+          element.url = replaceTargetUrl(element.url, state.version);
+          Object.assign(element, { auth: true });
+        }
+      }
     }
+    const newStyle = generatedStyle(layers, state.version);
+    const fileName = `style_${state.version}_[ ${state.checkedGroup.join(
+      "&"
+    )} ].json`;
+    $emit("rebuild", { newStyle, fileName });
+  } else {
+    message.warning("未勾选组合图层");
   }
-  const newStyle = generatedStyle(layers, state.version);
-  const fileName = `style_${state.version}_[ ${state.checkedGroup.join(
-    "&"
-  )} ].json`;
-  $emit("rebuild", { newStyle, fileName });
 };
 </script>
 
