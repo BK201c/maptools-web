@@ -6,6 +6,7 @@
           <span>Source Layers:</span>
           <a-checkbox
             v-for="(value, key) in state.layerGroup"
+            :checked="state.checkedGroup.includes(key)"
             @change="layerCheck(key)"
             >{{ key }}</a-checkbox
           >
@@ -132,6 +133,7 @@ const decodeLayers = (styles: any) => {
       ),
     ];
     state.scense = Object.keys(layers); //默认选中所有图层
+    state.checkedGroup = [];
     console.log("已解析", state.layerGroup, layers);
     message.success("检测到样式文件，已解析");
   } catch (error) {
