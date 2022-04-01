@@ -72,12 +72,23 @@ const $props = defineProps({
     type: [Object, String],
   },
 });
-const state = reactive({
+interface form {
+  checkAll: boolean;
+  layerGroup: object;
+  checkedGroup: string[];
+  scense: string[];
+  options: object[];
+  targetLayer: string;
+  targetHost: string;
+  targetMapName: string;
+  version: string;
+}
+const state = reactive(<form>{
   checkAll: false,
   layerGroup: {},
-  checkedGroup: <any>[],
+  checkedGroup: [],
   scense: [],
-  options: <object>[],
+  options: [],
   targetLayer: "",
   targetHost: "@kedacom.com",
   targetMapName: "local_map",
