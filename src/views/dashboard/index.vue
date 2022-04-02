@@ -2,12 +2,12 @@
   <section class="adapter-container">
     <a-row :gutter="[8, 8]">
       <a-col :span="10">
-        <a-row>
+        <a-row class="adapter-container-items">
           <a-col :span="24">
             <Uploader @uploaded="uploaded"></Uploader>
           </a-col>
         </a-row>
-        <a-row class="adapter-container-tags">
+        <a-row class="adapter-container-items">
           <a-col :span="24">
             <Transform
               @rebuild="rebuild"
@@ -67,8 +67,11 @@ const rebuild = (props: { newStyle: object; fileName: string }): void => {
 
 <style lang="scss" scoped>
 .adapter-container {
-  &-tags {
-    margin-top: 50px;
+  &-items {
+    box-shadow: 0 0 4px 1px #d5d5d5;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

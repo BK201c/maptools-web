@@ -118,15 +118,16 @@ const layerCheck = (key: any) => {
 const decodeLayers = (styles: any) => {
   try {
     let layers: Object | Array<object> = [];
+    const layerCount = Object.keys(state.layerGroup).length;
     if (styles.hasOwnProperty("layers")) layers = styles["layers"];
     if (styles.hasOwnProperty("2d")) layers = styles["2d"]["layers"];
     if (styles instanceof Array && styles.length > 0)
       layers = styles.reduce(
-        (pre, cur, i) => Object.assign(pre, { [`layer${i}`]: cur }),
+        (pre, cur) => Object.assign(pre, { [`layer${layerCount + 1}`]: cur }),
         {}
       );
 
-    state.layerGroup = layers;
+    Object.assign(state.layerGroup, layers);
     state.options = [
       ...Object.keys(layers).map((v) =>
         Object.assign({}, { label: v, value: v })
@@ -226,11 +227,9 @@ const getReverseLayer = () => {
 .trans-styles {
   &-items {
     margin-top: 10px;
+    user-select: none;
   }
   &-container {
-    box-shadow: 0 0 4px 1px #d5d5d5;
-    padding: 20px;
-    border-radius: 20px;
     .button {
       position: absolute;
       right: 20px;

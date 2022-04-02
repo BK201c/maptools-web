@@ -1,5 +1,5 @@
 <template>
-  <section style="height: 200px">
+  <section class="container">
     <a-upload-dragger
       :file-list="fileList"
       name="file"
@@ -8,6 +8,7 @@
       :before-upload="beforeUpload"
       @change="handleChange"
       accept=".json"
+      style="background: transparent; border: none"
     >
       <p class="ant-upload-drag-icon">
         <AntIcon icon="InboxOutlined" />
@@ -20,7 +21,7 @@
 
 <script lang="ts" setup>
 import AntIcon from "@cmp/icon";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 interface FileItem {
   uid: string;
   name?: string;
@@ -42,7 +43,7 @@ const handleChange = (info: FileInfo) => {
   let resFileList = [...info.fileList];
   // 1. Limit the number of uploaded files
   //    Only to show two recent uploaded files, and old ones will be replaced by the new
-  resFileList = resFileList.slice(-1);
+  // resFileList = resFileList.slice(-1);
   fileList.value = resFileList;
 };
 
@@ -79,4 +80,9 @@ const readJsonByFile = (file: any) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  background: transparent;
+  border: none;
+}
+</style>
