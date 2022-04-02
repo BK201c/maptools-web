@@ -6,12 +6,13 @@
     @click="handleClick"
   >
     <a-menu-item
+      style="width: 90%; margin: auto; border-radius: 8px"
       :key="menu.path"
       v-for="menu of baseRouter"
       @titleClick="titleClick"
     >
       <template #icon>
-        <AntIcon :icon="menu.meta.icon" />
+        <AntIcon style="margin-left: -4px" :icon="menu.meta.icon" />
       </template>
       {{ menu.meta.title }}
     </a-menu-item>
