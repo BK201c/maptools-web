@@ -75,10 +75,10 @@ const $props = defineProps({
 });
 interface form {
   checkAll: boolean;
-  layerGroup: object;
+  layerGroup: { [key: string]: any };
   checkedGroup: string[];
   scense: string[];
-  options: object[];
+  options: { [key: string]: string }[];
   targetLayer: string;
   targetHost: string;
   targetMapName: string;
