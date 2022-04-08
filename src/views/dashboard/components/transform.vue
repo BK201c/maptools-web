@@ -63,10 +63,10 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, toRaw, reactive, ref } from "vue";
+import { watch, toRaw, reactive } from "vue";
 import { pull, pick, cloneDeep, isEmpty } from "lodash";
 import { message } from "ant-design-vue";
-
+import dayjs from "dayjs";
 const $emit = defineEmits(["rebuild", "changeVersion"]);
 const $props = defineProps({
   iptStyle: {
@@ -213,9 +213,10 @@ const getReverseLayer = () => {
       }
     }
     const newStyle = generatedStyle(layers, state.version);
+    const dayjsTime = dayjs(`${new Date()}`).format("YYYY-MM-DD HH:mm:ss");
     const fileName = `style_${state.version}_[ ${state.checkedGroup.join(
       "&"
-    )} ].json`;
+    )} ]_${dayjsTime}.json`;
     $emit("rebuild", { newStyle, fileName });
   } else {
     message.warning("未勾选组合图层");
