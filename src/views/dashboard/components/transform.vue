@@ -75,8 +75,8 @@ const $props = defineProps({
 });
 interface form {
   checkAll: boolean;
-  layerGroup: { [key: string]: any };
-  checkedGroup: string[];
+  layerGroup: { [key: string | number]: any };
+  checkedGroup: any[];
   scense: string[];
   options: { [key: string]: string }[];
   targetLayer: string;
