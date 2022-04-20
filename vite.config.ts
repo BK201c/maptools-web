@@ -7,11 +7,11 @@ import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 
 const alias = {
-  "@": resolve(__dirname, "./src"),
+  "@": resolve(__dirname, "src"),
   "@root": resolve(__dirname, "."),
-  "@assets": resolve(__dirname, "./src/assets"),
-  "@cmp": resolve(__dirname, "./src/components"),
-  "@config": resolve(__dirname, "./src/config"),
+  "@assets": resolve(__dirname, "src/assets"),
+  "@cmp": resolve(__dirname, "src/components"),
+  "@config": resolve(__dirname, "src/config"),
 };
 
 const plugins = [
