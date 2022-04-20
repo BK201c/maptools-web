@@ -1,14 +1,15 @@
 <template>
   <section>
     <div class="opera-are" v-if="$props.hasTools">
-      <a-row class="btn-list-item" justify="end">
+      <a-row class="btn-list-item" justify="end" v-if="!isEmpty(code)">
         <a-space>
-          <a-button @click="copyToClipboard"> 复制 </a-button>
-          <a-button @click="downloadParams"> 下载 </a-button>
+          <a-button @click="copyToClipboard"> Copy </a-button>
+          <a-button @click="downloadParams"> Download </a-button>
         </a-space>
       </a-row>
     </div>
-    <pre><code>{{code}}</code></pre>
+    <pre v-if="!isEmpty(code)"><code>{{code}}</code></pre>
+    <div v-if="isEmpty(code)" class="tips">Waiting for analazy....</div>
   </section>
 </template>
 
@@ -16,6 +17,7 @@
 // import dayjs from "dayjs";
 import { message } from "ant-design-vue";
 import FileSaver from "file-saver";
+import { isEmpty } from "lodash";
 
 interface Props {
   code?: Object;

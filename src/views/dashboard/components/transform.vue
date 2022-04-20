@@ -10,7 +10,7 @@
             @change="layerCheck(key)"
             >{{ key }}</a-checkbox
           >
-          <span v-if="isEmpty(state.layerGroup)">waiting for analyze</span>
+          <span v-if="isEmpty(state.layerGroup)">Waiting for upload file?</span>
         </a-space>
       </a-col>
     </a-row>
@@ -19,8 +19,8 @@
         <a-space>
           <span>Target Version:</span>
           <a-radio-group v-model:value="state.version" @change="changeVersion">
-            <a-radio value="v2">v2</a-radio>
             <a-radio value="v3">v3</a-radio>
+            <a-radio value="v2">v2</a-radio>
           </a-radio-group>
         </a-space>
       </a-col>
@@ -43,12 +43,20 @@
     <a-row class="trans-styles-items">
       <a-col :span="24">
         <a-space>
+          <span>Need Reverse:</span>
+          <a-switch v-model:checked="state.isNeedReverse" />
+        </a-space>
+      </a-col>
+    </a-row>
+    <a-row class="trans-styles-items" v-if="state.isNeedReverse">
+      <a-col :span="24">
+        <a-space>
           <span>Target Host:</span>
           <a-input v-model:value="state.targetHost" placeholder="Host" />
         </a-space>
       </a-col>
     </a-row>
-    <a-row class="trans-styles-items">
+    <a-row class="trans-styles-items" v-if="state.isNeedReverse">
       <a-col :span="24">
         <a-space>
           <span>Target MapName:</span>
@@ -83,6 +91,7 @@ interface form {
   targetHost: string;
   targetMapName: string;
   version: string;
+  isNeedReverse: boolean;
 }
 const state = reactive(<form>{
   checkAll: false,
@@ -94,6 +103,7 @@ const state = reactive(<form>{
   targetHost: "@kedacom.com",
   targetMapName: "local_map",
   version: "v3",
+  isNeedReverse: true,
 });
 
 watch(
@@ -206,9 +216,11 @@ const getReverseLayer = () => {
     for (const key in layers) {
       if (Object.prototype.hasOwnProperty.call(layers, key)) {
         const element = layers[key];
-        if (!element.hasOwnProperty("auth") || element.auth) {
+        if (state.isNeedReverse) {
           element.url = replaceTargetUrl(element.url, state.version);
           Object.assign(element, { auth: true });
+        } else {
+          Object.assign(element, { auth: false });
         }
       }
     }

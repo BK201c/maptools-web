@@ -20,6 +20,7 @@ declare module 'vue' {
     ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASpace: typeof import('ant-design-vue/es')['Space']
+    ASwitch: typeof import('ant-design-vue/es')['Switch']
     AUploadDragger: typeof import('ant-design-vue/es')['UploadDragger']
     Higlight: typeof import('./src/components/higlight/index.vue')['default']
     Uploader: typeof import('./src/components/uploader/index.vue')['default']

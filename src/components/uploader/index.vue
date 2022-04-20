@@ -13,8 +13,8 @@
       <p class="ant-upload-drag-icon">
         <AntIcon icon="InboxOutlined" />
       </p>
-      <p class="ant-upload-text">点击或拖拽上传文件</p>
-      <p class="ant-upload-hint">仅支持上传json文件</p>
+      <p class="ant-upload-text">Drop or click to upload file</p>
+      <p class="ant-upload-hint">Support only .json file</p>
     </a-upload-dragger>
   </section>
 </template>

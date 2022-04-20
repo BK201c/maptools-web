@@ -21,10 +21,10 @@
           <template #expandIcon="{ isActive }">
             <AntIcon icon="CaretRightOutlined" :rotate="isActive ? 90 : 0" />
           </template>
-          <a-collapse-panel key="1" header="原始样式" :style="customStyle">
+          <a-collapse-panel key="1" header="Origin" :style="customStyle">
             <Higlight :code="state.uploadStyle" :hasTools="false"></Higlight>
           </a-collapse-panel>
-          <a-collapse-panel key="2" header="当前生成" :style="customStyle">
+          <a-collapse-panel key="2" header="Transformed" :style="customStyle">
             <Higlight
               :code="state.rebuildStyle"
               :fileName="state.fileName"
