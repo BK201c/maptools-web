@@ -49,6 +49,7 @@ export default ({ command, mode }) => {
     }
   }
   return defineConfig({
+    base: "/maptools-web/",
     // 本地服务配置
     server: {
       host: process.env.VITE_HOST,
