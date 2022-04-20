@@ -43,12 +43,12 @@
     <a-row class="trans-styles-items">
       <a-col :span="24">
         <a-space>
-          <span>Need Reverse:</span>
-          <a-switch v-model:checked="state.isNeedReverse" />
+          <span>Need Proxy:</span>
+          <a-switch v-model:checked="state.isNeedProxy" />
         </a-space>
       </a-col>
     </a-row>
-    <a-row class="trans-styles-items" v-if="state.isNeedReverse">
+    <a-row class="trans-styles-items" v-if="state.isNeedProxy">
       <a-col :span="24">
         <a-space>
           <span>Target Host:</span>
@@ -56,7 +56,7 @@
         </a-space>
       </a-col>
     </a-row>
-    <a-row class="trans-styles-items" v-if="state.isNeedReverse">
+    <a-row class="trans-styles-items" v-if="state.isNeedProxy">
       <a-col :span="24">
         <a-space>
           <span>Target MapName:</span>
@@ -91,7 +91,7 @@ interface form {
   targetHost: string;
   targetMapName: string;
   version: string;
-  isNeedReverse: boolean;
+  isNeedProxy: boolean;
 }
 const state = reactive(<form>{
   checkAll: false,
@@ -103,7 +103,7 @@ const state = reactive(<form>{
   targetHost: "@kedacom.com",
   targetMapName: "local_map",
   version: "v3",
-  isNeedReverse: true,
+  isNeedProxy: true,
 });
 
 watch(
@@ -216,7 +216,7 @@ const getReverseLayer = () => {
     for (const key in layers) {
       if (Object.prototype.hasOwnProperty.call(layers, key)) {
         const element = layers[key];
-        if (state.isNeedReverse) {
+        if (state.isNeedProxy) {
           element.url = replaceTargetUrl(element.url, state.version);
           Object.assign(element, { auth: true });
         } else {
