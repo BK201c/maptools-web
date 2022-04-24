@@ -14,6 +14,8 @@ cd dist
 
 git init
 git checkout -b master
+git merge dev
+git push
 git add -A
 git commit -m 'deploy'
 
