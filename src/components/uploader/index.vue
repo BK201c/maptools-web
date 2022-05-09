@@ -4,7 +4,7 @@
       :file-list="fileList"
       name="file"
       :multiple="false"
-      :remove="handleRemove"
+      @remove="handleRemove"
       :before-upload="beforeUpload"
       @change="handleChange"
       accept=".json"

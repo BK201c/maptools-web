@@ -128,14 +128,14 @@ const layerCheck = (key: any) => {
 const decodeLayers = (styles: any) => {
   try {
     let layers: Object | Array<object> = [];
-    const layerCount = Object.keys(state.layerGroup).length;
     if (styles.hasOwnProperty("layers")) layers = styles["layers"];
     if (styles.hasOwnProperty("2d")) layers = styles["2d"]["layers"];
-    if (styles instanceof Array && styles.length > 0)
+    if (styles instanceof Array && styles.length > 0) {
       layers = styles.reduce(
-        (pre, cur) => Object.assign(pre, { [`layer${layerCount + 1}`]: cur }),
+        (pre, cur) => Object.assign(pre, { [cur.layer]: cur }),
         {}
       );
+    }
 
     Object.assign(state.layerGroup, layers);
     state.options = [
