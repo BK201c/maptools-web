@@ -1,15 +1,12 @@
-import { h, VNode } from "vue";
+import { h } from "vue";
 import * as $Icon from "@ant-design/icons-vue";
+import { upperFirst, camelCase } from "lodash";
 
-/**
- *
- * @param props
- * @returns
- */
-export const AntIcon = (props: { icon: string }): VNode => {
-  const { icon } = props;
+type IconName = string | undefined | "";
+export const AntIcon = (props: { icon: IconName; style?: object }) => {
+  const icon = upperFirst(camelCase(props.icon));
   const iconMapper: { [key: string]: any } = $Icon;
-  return h(iconMapper[icon]);
+  return !icon ? "" : h(iconMapper[icon], { style: props.style });
 };
 
 export default AntIcon;

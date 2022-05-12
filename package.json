@@ -9,12 +9,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "3d-tiles-renderer": "^0.3.9",
     "@types/lodash": "^4.14.181",
+    "@types/three": "^0.140.0",
     "animate.css": "^4.1.1",
     "ant-design-vue": "^3.2.0",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "file-saver": "^2.0.5",
+    "three": "^0.140.2",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
