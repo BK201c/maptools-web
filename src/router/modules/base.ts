@@ -14,14 +14,23 @@ export const baseRouter: Array<MenuItem> = [
     name: "dashboard",
     component: () => import("@/views/dashboard/index.vue"),
   },
+  // {
+  //   meta: {
+  //     title: "3D",
+  //     icon: "experiment-outlined",
+  //   },
+  //   path: "/threeD",
+  //   name: "threeD",
+  //   component: () => import("@/views/threeD/index.vue"),
+  // },
   {
     meta: {
-      title: "3D",
+      title: "3dtiles",
       icon: "experiment-outlined",
     },
-    path: "/threeD",
-    name: "threeD",
-    component: () => import("@/views/threeD/index.vue"),
+    path: "/tiles",
+    name: "tiles",
+    component: () => import("@/views/dtiles/index.vue"),
   },
   {
     meta: {

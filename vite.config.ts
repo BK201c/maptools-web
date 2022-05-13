@@ -5,6 +5,7 @@ import { resolve } from "path";
 import dotenv from "dotenv";
 import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
+import cesium from "vite-plugin-cesium";
 
 const alias = {
   "@": resolve(__dirname, "src"),
@@ -20,6 +21,9 @@ const plugins = [
     dirs: ["./src/components"],
     resolvers: [AntDesignVueResolver()],
     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+  }),
+  cesium({
+    rebuildCesium: true,
   }),
 ];
 

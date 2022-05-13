@@ -28,10 +28,12 @@
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/compiler-sfc": "^3.2.31",
     "@vuedx/typescript-plugin-vue": "^0.7.4",
+    "cesium": "^1.93.0",
     "sass": "^1.49.9",
     "typescript": "^4.6.2",
     "unplugin-vue-components": "^0.18.5",
-    "vite": "^2.4.4",
+    "vite": "^2.9.9",
+    "vite-plugin-cesium": "^1.2.18",
     "vue-tsc": "^0.33.6"
   }
 }
