@@ -132,7 +132,8 @@ const decodeLayers = (styles: any) => {
     if (styles.hasOwnProperty("2d")) layers = styles["2d"]["layers"];
     if (styles instanceof Array && styles.length > 0) {
       layers = styles.reduce(
-        (pre, cur) => Object.assign(pre, { [cur.layer]: cur }),
+        (pre, cur, i) =>
+          Object.assign(pre, { [cur.layer || `layer${i}`]: cur }),
         {}
       );
     }
