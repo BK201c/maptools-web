@@ -6,6 +6,14 @@
 import * as Cesium from "cesium";
 import { onMounted } from "vue";
 let viewer: any;
+interface Props {
+  tilesetUrl?: string;
+  destination?: number[];
+}
+const $props = withDefaults(defineProps<Props>(), {
+  tilesetUrl: "",
+  destination: [106.3055, 38.4529, 370],
+});
 const initViewer = () => {
   const viewerOptions = {
     // terrainProvider: Cesium.createWorldTerrain(),
